@@ -18,20 +18,37 @@ pipeline {
                 }
             }
         }
-    stage('Prepare Python Environment') {
+    stage('Authenticate') {
             steps {
                 script {
-                    // Create a virtual environment
-                    sh 'python -m venv venv'
-                    // Activate the virtual environment and install requirements
-                    sh '''
-                    source venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                    def authScript = '''
+import requests
+import json
+
+host = "${HOST}"
+username = "${USERNAME}"
+password = "${PASSWORD}"
+
+url = f"{host}/SASLogon/oauth/token"
+authBody = f'grant_type=password&username={username}&password={password}'
+headersAuth = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
+
+r = requests.post(url, data=authBody, headers=headersAuth, auth=('sas.ec', ''))
+
+if r.status_code == 200:
+    token = r.json().get('access_token')
+    print(token)
+else:
+    print(f"Error: {r.status_code}, Response: {r.text}")
                     '''
+
+                    writeFile file: 'auth.py', text: authScript
+                    def tokenOutput = sh(script: 'source venv/bin/activate && python auth.py', returnStdout: true)
+                    env.TOKEN = tokenOutput.trim()
                 }
             }
         }
+
     
   }
 }
