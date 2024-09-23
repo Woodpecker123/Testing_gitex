@@ -8,22 +8,16 @@ pipeline {
         echo 'Hi There please work'
       }
     }
-    stage('Install Dependencies') {
+     stage('Setup') {
             steps {
-                // Install required Python packages
-                sh 'pip3 install requests json pandas numpy matplotlib'
+                script {
+                    // Define variables
+                    env.HOST = "http://sit.woodpecker.com"
+                    env.USERNAME = "akash"
+                    env.PASSWORD = "akash@2024"
+                }
             }
         }
-
-    // Second stage: Run a Python script
-    stage('Run Python Script') {
-      steps {
-        script {
-          // Run the Python script using Python 3
-          sh 'python3 score1.py'
-        }
-      }
-    }
     
   }
 }
