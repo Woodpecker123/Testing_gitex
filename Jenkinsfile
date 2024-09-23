@@ -14,7 +14,7 @@ pipeline {
       steps {
         script {
           // Run the Python script using Python 3
-          sh 'python3 test.py'
+          sh 'python3 score1.py'
         }
       }
     }
