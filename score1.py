@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # In[1]:
-
+pip install requests json pandas numpy matplotlib
 
 # Importing packages
 import requests
