@@ -8,6 +8,12 @@ pipeline {
         echo 'Hi There please work'
       }
     }
+    stage('Install Dependencies') {
+            steps {
+                // Install required Python packages
+                sh 'pip3 install requests json pandas numpy matplotlib'
+            }
+        }
 
     // Second stage: Run a Python script
     stage('Run Python Script') {
