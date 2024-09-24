@@ -7,16 +7,7 @@ pipeline {
       }
     }
 
-    stage('Setup') {
-      steps {
-        script {
-          env.HOST = "http://sit.woodpecker.com"
-          env.USERNAME = "akash"
-          env.PASSWORD = "akash@2024"
-        }
-
-      }
-    }
+    
 
   }
 }
