@@ -19,20 +19,6 @@ pipeline {
             }
         }
   
-    stages {
-        stage('Install Virtualenv') {
-            steps {
-                script {
-                    // Update pip
-                    sh 'pip3 install --upgrade pip'
-                    
-                    // Install virtualenv for the user
-                    sh 'pip3 install --user virtualenv'
-                    
-                    // Optionally create and activate a virtual environment
-                    // Uncomment the following lines if needed
-                    // sh 'python3 -m venv myenv'
-                    // sh 'source myenv/bin/activate'
-                }
+    
             }
         }
